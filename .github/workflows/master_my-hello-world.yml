@@ -25,7 +25,7 @@ jobs:
 
       - name: Install Maven 3.9.2
         run: |
-          wget https://archive.apache.org/dist/maven/binaries/apache-maven-3.9.2-bin.zip
+          wget https://downloads.apache.org/maven/maven-3/3.9.2/binaries/apache-maven-3.9.2-bin.zip
           unzip apache-maven-3.9.2-bin.zip
           sudo mv apache-maven-3.9.2 /opt/maven
           echo "M2_HOME=/opt/maven" | sudo tee -a /etc/environment
