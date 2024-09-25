@@ -66,4 +66,8 @@ jobs:
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
-        uses: azure/web
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'my-hello-world'
+          slot-name: 'Production'
+          package: 'target/*.war'  # Adjusted to specify the correct path to the WAR file
