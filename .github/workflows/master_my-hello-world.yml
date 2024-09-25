@@ -21,7 +21,14 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '11'
-          distribution: 'microsoft'  # Consider using 'adopt' or 'temurin' as they are popular distributions
+          distribution: 'adopt'  # Changed to 'adopt' for a widely-used distribution
+
+      - name: Set up Maven
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          mvn-version: '3.9.2'  # Specify the required Maven version
 
       - name: Build with Maven
         run: mvn clean install
@@ -60,4 +67,4 @@ jobs:
         with:
           app-name: 'my-hello-world'
           slot-name: 'Production'
-          package: '*.war'  # Adjust this if your WAR file is located in a different path
+          package: 'target/*.war'  # Adjusted to specify the correct path to the WAR file
