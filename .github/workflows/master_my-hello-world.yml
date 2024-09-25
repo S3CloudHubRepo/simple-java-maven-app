@@ -14,13 +14,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Set up Java version
         uses: actions/setup-java@v4
         with:
           java-version: '11'
-          distribution: 'microsoft'
+          distribution: 'microsoft'  # Consider using 'adopt' or 'temurin' as they are popular distributions
 
       - name: Build with Maven
         run: mvn clean install
@@ -29,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.war'
+          path: '${{ github.workspace }}/target/*.war'  # Ensure your WAR file is generated here
 
   deploy:
     runs-on: ubuntu-latest
@@ -38,7 +39,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write #This is required for requesting the JWT
+      id-token: write  # This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -59,5 +60,4 @@ jobs:
         with:
           app-name: 'my-hello-world'
           slot-name: 'Production'
-          package: '*.war'
-          
+          package: '*.war'  # Adjust this if your WAR file is located in a different path
