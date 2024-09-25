@@ -21,13 +21,14 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '11'
-          distribution: 'adopt'  # Consider using 'adopt' or 'temurin' as they are popular distributions
+          distribution: 'adopt'  # or 'temurin'
 
-      - name: Set up Maven version
-        uses: actions/setup-java@v4
-        with:
-          java-version: '11'
-          maven-version: '3.9.2'  # Specify the desired Maven version
+      - name: Install Maven
+        run: |
+          wget https://downloads.apache.org/maven/maven-3/3.9.2/binaries/apache-maven-3.9.2-bin.zip
+          unzip apache-maven-3.9.2-bin.zip -d /opt/
+          sudo ln -s /opt/apache-maven-3.9.2/bin/mvn /usr/bin/mvn
+          mvn -v  # Verify Maven installation
 
       - name: Build with Maven
         run: mvn clean install
