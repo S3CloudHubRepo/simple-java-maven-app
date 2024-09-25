@@ -23,15 +23,11 @@ jobs:
           java-version: '11'
           distribution: 'adopt'  # Consider using 'adopt' or 'temurin' as they are popular distributions
 
-      - name: Install Maven 3.9.2
-        run: |
-          wget https://downloads.apache.org/maven/maven-3/3.9.2/binaries/apache-maven-3.9.2-bin.zip
-          unzip apache-maven-3.9.2-bin.zip
-          sudo mv apache-maven-3.9.2 /opt/maven
-          echo "M2_HOME=/opt/maven" | sudo tee -a /etc/environment
-          echo "PATH=\$PATH:/opt/maven/bin" | sudo tee -a /etc/environment
-          source /etc/environment
-          mvn -version  # Verify Maven version
+      - name: Set up Maven version
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          maven-version: '3.9.2'  # Specify the desired Maven version
 
       - name: Build with Maven
         run: mvn clean install
